@@ -77,9 +77,6 @@ public class Populate {
             }
         }
 
-        for (Map.Entry<String, Piece> entry : positions.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
         return positions;
     }
 }
