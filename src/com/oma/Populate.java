@@ -3,80 +3,93 @@ package com.oma;
 import com.oma.model.*;
 import com.oma.model.base.Piece;
 import java.util.List;
-import java.util.Map;
 
 public class Populate {
 
-    private final Map<String, Piece> positions;
     private final List<String> alphabets;
 
-    public Populate(Map<String, Piece> positions, List<String> alphabets) {
-        this.positions = positions;
+    public Populate(List<String> alphabets) {
         this.alphabets = alphabets;
     }
 
-    private int populateRook(int index) {
+    private int populateRook(int index, ChessBoard chessBoard) {
         Chess<Rook> chess = new Chess<>();
-        chess.addPiece(positions, new Rook(), alphabets.get(index) + 1, "White");
-        chess.addPiece(positions, new Rook(), alphabets.get(index) + 8, "Black");
+        Rook whiteRook = chess.addPiece(new Rook(), alphabets.get(index) + 1, "White");
+        Rook blackRook = chess.addPiece(new Rook(), alphabets.get(index) + 8, "Black");
+        Piece[][] pieces = chessBoard.getBoard();
+        pieces[0][index] = whiteRook;
+        pieces[7][index] = blackRook;
+        chessBoard.setBoard(pieces);
         return index + 1;
     }
 
-    private int populateKnight(int index) {
+    private int populateKnight(int index, ChessBoard chessBoard) {
         Chess<Knight> chess2 = new Chess<>();
-        chess2.addPiece(positions, new Knight(), alphabets.get(index) + 1, "White");
-        chess2.addPiece(positions, new Knight(), alphabets.get(index) + 8, "Black");
+        Knight whiteKnight = chess2.addPiece(new Knight(), alphabets.get(index) + 1, "White");
+        Knight blackKnight = chess2.addPiece(new Knight(), alphabets.get(index) + 8, "Black");
+        Piece[][] pieces = chessBoard.getBoard();
+        pieces[0][index] = whiteKnight;
+        pieces[7][index] = blackKnight;
+        chessBoard.setBoard(pieces);
         return index + 1;
     }
 
-    private int populateBishop(int index) {
+    private int populateBishop(int index, ChessBoard chessBoard) {
         Chess<Bishop> chess3 = new Chess<>();
-        chess3.addPiece(positions, new Bishop(), alphabets.get(index) + 1, "White");
-        chess3.addPiece(positions, new Bishop(), alphabets.get(index) + 8, "Black");
+        Bishop whiteBishop = chess3.addPiece(new Bishop(), alphabets.get(index) + 1, "White");
+        Bishop blackBishop = chess3.addPiece(new Bishop(), alphabets.get(index) + 8, "Black");
+        Piece[][] pieces = chessBoard.getBoard();
+        pieces[0][index] = whiteBishop;
+        pieces[7][index] = blackBishop;
+        chessBoard.setBoard(pieces);
         return index + 1;
     }
 
-    private int populateQueen(int index) {
+    private int populateQueen(int index, ChessBoard chessBoard) {
         Chess<Queen> chess4 = new Chess<>();
-        chess4.addPiece(positions, new Queen(), alphabets.get(index) + 1, "White");
-        chess4.addPiece(positions, new Queen(), alphabets.get(index) + 8, "Black");
+        Queen whiteQueen = chess4.addPiece(new Queen(), alphabets.get(index) + 1, "White");
+        Queen blackQueen = chess4.addPiece(new Queen(), alphabets.get(index) + 8, "Black");
+        Piece[][] pieces = chessBoard.getBoard();
+        pieces[0][index] = whiteQueen;
+        pieces[7][index] = blackQueen;
+        chessBoard.setBoard(pieces);
         return index + 1;
     }
 
-    private int populateKing(int index) {
+    private int populateKing(int index, ChessBoard chessBoard) {
         Chess<King> chess5 = new Chess<>();
-        chess5.addPiece(positions, new King(), alphabets.get(index) + 1, "White");
-        chess5.addPiece(positions, new King(), alphabets.get(index) + 8, "Black");
+        King whiteKing = chess5.addPiece(new King(), alphabets.get(index) + 1, "White");
+        King blackKing = chess5.addPiece(new King(), alphabets.get(index) + 8, "Black");
+        Piece[][] pieces = chessBoard.getBoard();
+        pieces[0][index] = whiteKing;
+        pieces[7][index] = blackKing;
+        chessBoard.setBoard(pieces);
         return index + 1;
     }
 
-    private void populatePawn(int index) {
+    private void populatePawn(int index, ChessBoard chessBoard) {
         Chess<Pawn> pawnChess = new Chess<>();
-        pawnChess.addPiece(positions, new Pawn(), alphabets.get(index) + 2, "White");
-        pawnChess.addPiece(positions, new Pawn(), alphabets.get(index) + 7, "Black");
+        Pawn whitePawn = pawnChess.addPiece(new Pawn(), alphabets.get(index) + 2, "White");
+        Pawn blackPawn = pawnChess.addPiece(new Pawn(), alphabets.get(index) + 7, "Black");
+        Piece[][] pieces = chessBoard.getBoard();
+        pieces[1][index] = whitePawn;
+        pieces[6][index] = blackPawn;
+        chessBoard.setBoard(pieces);
     }
 
-    public Map<String, Piece> populatePositions() {
+    public void populatePositions(ChessBoard chessBoard) {
         int j = 0;
-        j = populateRook(j);
-        j = populateKnight(j);
-        j = populateBishop(j);
-        j = populateQueen(j);
-        j = populateKing(j);
-        j = populateBishop(j);
-        j = populateKnight(j);
-        populateRook(j);
+        j = populateRook(j, chessBoard);
+        j = populateKnight(j, chessBoard);
+        j = populateBishop(j, chessBoard);
+        j = populateQueen(j, chessBoard);
+        j = populateKing(j, chessBoard);
+        j = populateBishop(j, chessBoard);
+        j = populateKnight(j, chessBoard);
+        populateRook(j, chessBoard);
 
         for (int k = 0; k < 8; k++) {
-            populatePawn(k);
+            populatePawn(k, chessBoard);
         }
-
-        for (int i = 3; i < 7; i++) {
-            for (int k = 0; k < 8; k++) {
-                positions.put(alphabets.get(k) + i, null);
-            }
-        }
-
-        return positions;
     }
 }
