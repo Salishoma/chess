@@ -11,7 +11,8 @@ import static com.oma.enums.Move.*;
 public class Bishop extends Piece {
 
     private final List<Move> moves = new ArrayList<Move>(){{
-        add(DIAGONAL);
+        add(DIAGONAL_UP_LEFT); add(DIAGONAL_UP_RIGHT);
+        add(DIAGONAL_DOWN_LEFT); add(DIAGONAL_DOWN_RIGHT);
     }};
 
     private final int maxDistancePerMove;
